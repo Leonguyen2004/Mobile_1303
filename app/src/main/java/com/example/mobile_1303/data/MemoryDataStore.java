@@ -1,37 +1,20 @@
 package com.example.mobile_1303.data;
 
+import com.example.mobile_1303.model.Room;
+
 import java.util.ArrayList;
 import java.util.List;
-
 public class MemoryDataStore {
     private static MemoryDataStore instance;
-    // Sẽ đổi Object thành Model thực tế khi có đề (VD: SinhVien, Product...)
-    private List<Object> itemList;
-
+    private List<Room> roomList = new ArrayList<>();
     private MemoryDataStore() {
-        itemList = new ArrayList<>();
+        // Dữ liệu mẫu
+        roomList.add(new Room("P101", "Phòng 101", 2500000, false, "", ""));
+        roomList.add(new Room("P102", "Phòng 102", 3000000, true, "Nguyễn Văn A", "0901234567"));
     }
-
-    public static synchronized MemoryDataStore getInstance() {
-        if (instance == null) {
-            instance = new MemoryDataStore();
-        }
+    public static MemoryDataStore getInstance() {
+        if (instance == null) instance = new MemoryDataStore();
         return instance;
     }
-
-    public List<Object> getAllItems() { return itemList; }
-
-    public void addItem(Object item) { itemList.add(item); }
-
-    public void updateItem(int index, Object updatedItem) {
-        if (index >= 0 && index < itemList.size()) {
-            itemList.set(index, updatedItem);
-        }
-    }
-
-    public void deleteItem(int index) {
-        if (index >= 0 && index < itemList.size()) {
-            itemList.remove(index);
-        }
-    }
+    public List<Room> getRoomList() { return roomList; }
 }
