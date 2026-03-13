@@ -106,32 +106,71 @@ public class AddRoomActivity extends AppCompatActivity {
         String roomName = edtRoomName.getText().toString().trim();
         String priceStr = edtPrice.getText().toString().trim();
 
-        // 1. Kiểm tra mã phòng và tên phòng không trống
-        if (roomId.isEmpty() || roomName.isEmpty()) {
-            Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+        // 1. Kiểm tra mã phòng không trống
+        if (roomId.isEmpty()) {
+            edtRoomId.setError("Mã phòng không được để trống");
+            edtRoomId.requestFocus();
             return false;
         }
 
-        // 2. Kiểm tra giá thuê hợp lệ (> 0)
+        // 2. Kiểm tra mã phòng không bị trùng
+        for (Room existingRoom : MemoryDataStore.getInstance().getRoomList()) {
+            if (existingRoom.getRoomId().equalsIgnoreCase(roomId)) {
+                edtRoomId.setError("Mã phòng \"" + roomId + "\" đã tồn tại!");
+                edtRoomId.requestFocus();
+                return false;
+            }
+        }
+
+        // 3. Kiểm tra tên phòng không trống
+        if (roomName.isEmpty()) {
+            edtRoomName.setError("Tên phòng không được để trống");
+            edtRoomName.requestFocus();
+            return false;
+        }
+
+        // 3b. Kiểm tra tên phòng không bị trùng
+        for (Room existingRoom : MemoryDataStore.getInstance().getRoomList()) {
+            if (existingRoom.getRoomName().equalsIgnoreCase(roomName)) {
+                edtRoomName.setError("Tên phòng \"" + roomName + "\" đã tồn tại!");
+                edtRoomName.requestFocus();
+                return false;
+            }
+        }
+
+        if (priceStr.isEmpty()) {
+            edtPrice.setError("Giá thuê không được để trống");
+            edtPrice.requestFocus();
+            return false;
+        }
+
         double price;
         try {
             price = Double.parseDouble(priceStr);
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Giá thuê không hợp lệ", Toast.LENGTH_SHORT).show();
+            edtPrice.setError("Giá thuê không hợp lệ");
+            edtPrice.requestFocus();
             return false;
         }
 
         if (price <= 0) {
-            Toast.makeText(this, "Giá thuê không hợp lệ", Toast.LENGTH_SHORT).show();
+            edtPrice.setError("Giá thuê phải lớn hơn 0");
+            edtPrice.requestFocus();
             return false;
         }
 
-        // 3. Nếu "Đã thuê" thì tên & SĐT người thuê không được trống
+        // 5. Nếu "Đã thuê" thì tên & SĐT người thuê không được trống
         if (isOccupied) {
             String tenantName  = edtTenantName.getText().toString().trim();
             String tenantPhone = edtTenantPhone.getText().toString().trim();
-            if (tenantName.isEmpty() || tenantPhone.isEmpty()) {
-                Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+            if (tenantName.isEmpty()) {
+                edtTenantName.setError("Tên người thuê không được để trống");
+                edtTenantName.requestFocus();
+                return false;
+            }
+            if (tenantPhone.isEmpty()) {
+                edtTenantPhone.setError("SĐT người thuê không được để trống");
+                edtTenantPhone.requestFocus();
                 return false;
             }
         }

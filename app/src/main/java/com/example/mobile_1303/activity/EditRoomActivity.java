@@ -118,6 +118,17 @@ public class EditRoomActivity extends AppCompatActivity {
             return;
         }
 
+        // Validate: Tên phòng không được trùng (trừ chính phòng đang sửa)
+        List<Room> allRooms = MemoryDataStore.getInstance().getRoomList();
+        for (int i = 0; i < allRooms.size(); i++) {
+            if (i != roomIndex && allRooms.get(i).getRoomName().equalsIgnoreCase(roomName)) {
+                edtRoomName.setError("Tên phòng \"" + roomName + "\" đã tồn tại!");
+                edtRoomName.requestFocus();
+                return;
+            }
+        }
+
+
         // Validate: Giá phải > 0
         if (priceStr.isEmpty()) {
             edtPrice.setError("Giá thuê không được để trống");

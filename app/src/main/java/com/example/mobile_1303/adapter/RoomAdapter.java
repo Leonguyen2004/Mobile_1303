@@ -2,7 +2,6 @@ package com.example.mobile_1303.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +13,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobile_1303.R;
-import com.example.mobile_1303.data.MemoryDataStore;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.mobile_1303.R;
 import com.example.mobile_1303.activity.EditRoomActivity;
+import com.example.mobile_1303.data.MemoryDataStore;
 import com.example.mobile_1303.model.Room;
 
 import java.text.NumberFormat;
@@ -33,14 +29,11 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     }
 
     // ===================== Fields =====================
-    private final List<Room> roomList;
     private final Context context;
+    private final List<Room> roomList;
     private OnDeleteListener onDeleteListener;
 
     // ===================== Constructor =====================
-    /**
-     * Constructor nhận Context, danh sách phòng và callback xóa.
-     */
     public RoomAdapter(Context context, List<Room> roomList, OnDeleteListener listener) {
         this.context = context;
         this.roomList = roomList;
@@ -71,19 +64,6 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     @NonNull
     @Override
     public RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_room, parent, false);
-    private final Context context;
-    private final List<Room> roomList;
-
-    public RoomAdapter(Context context, List<Room> roomList) {
-        this.context = context;
-        this.roomList = roomList;
-    }
-
-    @NonNull
-    @Override
-    public RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_room, parent, false);
         return new RoomViewHolder(view);
     }
@@ -92,14 +72,14 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     public void onBindViewHolder(@NonNull RoomViewHolder holder, int position) {
         Room room = roomList.get(position);
 
-        // --- Hiển thị thông tin phòng ---
+        // --- Hiển thị tên phòng ---
         holder.tvRoomName.setText(room.getRoomName());
 
-        // Format giá tiền VND
+        // --- Format giá tiền VND ---
         NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
         holder.tvPrice.setText("Giá: " + nf.format(room.getPrice()) + " VND");
 
-        // Trạng thái phòng
+        // --- Trạng thái phòng + tô màu ---
         if (room.isOccupied()) {
             holder.tvStatus.setText("Đã thuê");
             holder.tvStatus.setTextColor(0xFFF44336); // Đỏ
@@ -113,10 +93,12 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
             holder.tvTenant.setVisibility(View.GONE);
         }
 
-        // ===================== CHỨC NĂNG XÓA (TV4) =====================
-
-        // Bật nút Xóa (item_btn_delete mặc định visibility="gone" trong XML)
-        holder.btnDelete.setVisibility(View.VISIBLE);
+        // --- Click item → mở EditRoomActivity ---
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, EditRoomActivity.class);
+            intent.putExtra("room_index", holder.getAdapterPosition());
+            context.startActivity(intent);
+        });
 
         // --- Click nút Xóa → AlertDialog xác nhận ---
         holder.btnDelete.setOnClickListener(v -> {
@@ -127,31 +109,6 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
         holder.itemView.setOnLongClickListener(v -> {
             showDeleteDialog(holder, room);
             return true;
-        // Hiển thị tên phòng
-        holder.tvRoomName.setText(room.getRoomName());
-
-        // Hiển thị giá thuê theo format "2,500,000 VND"
-        NumberFormat formatter = NumberFormat.getNumberInstance(Locale.US);
-        String formattedPrice = formatter.format((long) room.getPrice()) + " VND";
-        holder.tvPrice.setText(formattedPrice);
-
-        // Hiển thị trạng thái và tô màu
-        if (room.isOccupied()) {
-            holder.tvStatus.setText("Đã thuê");
-            holder.tvStatus.setTextColor(Color.parseColor("#F44336")); // Đỏ
-        } else {
-            holder.tvStatus.setText("Còn trống");
-            holder.tvStatus.setTextColor(Color.parseColor("#4CAF50")); // Xanh lá
-        }
-
-        // Nút xóa ẩn tạm – thành viên 4 sẽ xử lý logic xóa
-        holder.btnDelete.setVisibility(View.GONE);
-
-        // Click item → mở EditRoomActivity
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, EditRoomActivity.class);
-            intent.putExtra("room_index", position);
-            context.startActivity(intent);
         });
     }
 
@@ -161,13 +118,9 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     }
 
     // ===================== Helper: Dialog xác nhận xóa =====================
-    /**
-     * Hiển thị AlertDialog xác nhận xóa phòng.
-     * Sau khi xóa: cập nhật MemoryDataStore + notify Adapter + gọi callback.
-     */
     private void showDeleteDialog(RoomViewHolder holder, Room room) {
         int pos = holder.getAdapterPosition();
-        if (pos == RecyclerView.NO_POSITION) return; // tránh crash nếu item đã bị remove
+        if (pos == RecyclerView.NO_POSITION) return;
 
         new AlertDialog.Builder(context)
                 .setTitle("Xác nhận xóa")
@@ -185,21 +138,5 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
                 })
                 .setNegativeButton("Hủy", null)
                 .show();
-        return roomList.size();
-    }
-
-    public static class RoomViewHolder extends RecyclerView.ViewHolder {
-        TextView tvRoomName;
-        TextView tvPrice;
-        TextView tvStatus;
-        Button btnDelete;
-
-        public RoomViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvRoomName = itemView.findViewById(R.id.item_tv_room_name);
-            tvPrice    = itemView.findViewById(R.id.item_tv_price);
-            tvStatus   = itemView.findViewById(R.id.item_tv_status);
-            btnDelete  = itemView.findViewById(R.id.item_btn_delete);
-        }
     }
 }
