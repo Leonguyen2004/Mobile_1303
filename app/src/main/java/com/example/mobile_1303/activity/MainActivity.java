@@ -5,12 +5,6 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-<<<<<<< HEAD
-=======
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
->>>>>>> d1e4f84610556eb0d7c0c91fa27839f274b14144
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,20 +12,14 @@ import com.example.mobile_1303.R;
 import com.example.mobile_1303.adapter.RoomAdapter;
 import com.example.mobile_1303.data.MemoryDataStore;
 import com.example.mobile_1303.model.Room;
-<<<<<<< HEAD
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-=======
->>>>>>> d1e4f84610556eb0d7c0c91fa27839f274b14144
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView rvRooms;
-<<<<<<< HEAD
     private FloatingActionButton fabAdd;
-=======
->>>>>>> d1e4f84610556eb0d7c0c91fa27839f274b14144
     private RoomAdapter adapter;
     private List<Room> roomList;
 
@@ -47,8 +35,13 @@ public class MainActivity extends AppCompatActivity {
         // Lấy dữ liệu từ MemoryDataStore (Singleton)
         roomList = MemoryDataStore.getInstance().getRoomList();
 
+        // Khởi tạo Adapter với callback xóa (Toast thông báo xóa thành công)
+        adapter = new RoomAdapter(this, roomList, position -> {
+            Toast.makeText(MainActivity.this,
+                    "Đã xóa phòng thành công!", Toast.LENGTH_SHORT).show();
+        });
+
         // Thiết lập RecyclerView
-        adapter = new RoomAdapter(this, roomList);
         rvRooms.setLayoutManager(new LinearLayoutManager(this));
         rvRooms.setAdapter(adapter);
 
@@ -56,22 +49,6 @@ public class MainActivity extends AppCompatActivity {
         fabAdd.setOnClickListener(v -> {
             startActivity(new Intent(this, AddRoomActivity.class));
         });
-
-        // Lấy danh sách phòng từ MemoryDataStore
-        roomList = MemoryDataStore.getInstance().getRoomList();
-
-        // Khởi tạo RecyclerView
-        rvRooms = findViewById(R.id.rv_rooms);
-        rvRooms.setLayoutManager(new LinearLayoutManager(this));
-
-        // Khởi tạo Adapter với callback xóa
-        adapter = new RoomAdapter(this, roomList, position -> {
-            // Callback khi xóa thành công – có thể xử lý thêm logic ở đây
-            Toast.makeText(MainActivity.this,
-                    "Đã xóa phòng thành công!", Toast.LENGTH_SHORT).show();
-        });
-
-        rvRooms.setAdapter(adapter);
     }
 
     @Override

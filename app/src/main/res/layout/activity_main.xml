@@ -7,26 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
-<<<<<<< HEAD
-    <!-- RecyclerView danh sách phòng -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_rv_rooms"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="80dp"
-        android:clipToPadding="false"/>
-
-    <!-- FAB Thêm phòng -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/main_fab_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:contentDescription="Thêm phòng"
-        app:srcCompat="@android:drawable/ic_input_add"
-        app:tint="@android:color/white"/>
-=======
+    <!-- Tiêu đề màn hình -->
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
@@ -37,18 +18,27 @@
         android:textColor="#333333"
         android:gravity="center"
         android:padding="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:background="#FFFFFF"
+        android:elevation="4dp" />
 
+    <!-- RecyclerView danh sách phòng -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_rooms"
+        android:id="@+id/main_rv_rooms"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
->>>>>>> d1e4f84610556eb0d7c0c91fa27839f274b14144
+        android:layout_height="match_parent"
+        android:paddingTop="60dp"
+        android:paddingBottom="80dp"
+        android:clipToPadding="false" />
+
+    <!-- FAB Thêm phòng -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/main_fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:contentDescription="Thêm phòng"
+        app:srcCompat="@android:drawable/ic_input_add"
+        app:tint="@android:color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
