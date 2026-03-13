@@ -112,7 +112,21 @@ public class AddRoomActivity extends AppCompatActivity {
             return false;
         }
 
-        // 2. Kiểm tra giá thuê hợp lệ (> 0)
+        // 2. Kiểm tra mã phòng và tên phòng không trùng với phòng đã có
+        for (Room room : MemoryDataStore.getInstance().getRoomList()) {
+            if (room.getRoomId().equalsIgnoreCase(roomId)) {
+                Toast.makeText(this, "Mã phòng đã tồn tại", Toast.LENGTH_SHORT).show();
+                edtRoomId.requestFocus();
+                return false;
+            }
+            if (room.getRoomName().equalsIgnoreCase(roomName)) {
+                Toast.makeText(this, "Tên phòng đã tồn tại", Toast.LENGTH_SHORT).show();
+                edtRoomName.requestFocus();
+                return false;
+            }
+        }
+
+        // 3. Kiểm tra giá thuê hợp lệ (> 0)
         double price;
         try {
             price = Double.parseDouble(priceStr);
