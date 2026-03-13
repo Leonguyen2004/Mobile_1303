@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Tiêu đề -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="THÊM PHÒNG MỚI"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#1565C0"
+            android:gravity="center"
+            android:paddingBottom="16dp" />
+
+        <!-- Mã phòng -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mã phòng *"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            android:paddingBottom="4dp" />
+
+        <EditText
+            android:id="@+id/add_edt_room_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập mã phòng (VD: P101)"
+            android:inputType="text"
+            android:background="@android:drawable/edit_text"
+            android:padding="10dp"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Tên phòng -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tên phòng *"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            android:paddingBottom="4dp" />
+
+        <EditText
+            android:id="@+id/add_edt_room_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập tên phòng (VD: Phòng 101)"
+            android:inputType="text"
+            android:background="@android:drawable/edit_text"
+            android:padding="10dp"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Giá thuê -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Giá thuê (VNĐ/tháng) *"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            android:paddingBottom="4dp" />
+
+        <EditText
+            android:id="@+id/add_edt_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập giá thuê (VD: 2500000)"
+            android:inputType="numberDecimal"
+            android:background="@android:drawable/edit_text"
+            android:padding="10dp"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Tình trạng phòng -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tình trạng phòng *"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            android:paddingBottom="4dp" />
+
+        <RadioGroup
+            android:id="@+id/add_rg_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+
+            <RadioButton
+                android:id="@+id/add_rb_empty"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Còn trống"
+                android:checked="true"
+                android:textColor="#2E7D32" />
+
+            <RadioButton
+                android:id="@+id/add_rb_occupied"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Đã thuê"
+                android:textColor="#C62828" />
+
+        </RadioGroup>
+
+        <!-- Tên người thuê -->
+        <TextView
+            android:id="@+id/add_lbl_tenant_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tên người thuê *"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            android:paddingBottom="4dp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/add_edt_tenant_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập tên người thuê"
+            android:inputType="textPersonName"
+            android:background="@android:drawable/edit_text"
+            android:padding="10dp"
+            android:layout_marginBottom="12dp"
+            android:visibility="gone" />
+
+        <!-- Số điện thoại người thuê -->
+        <TextView
+            android:id="@+id/add_lbl_tenant_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Số điện thoại người thuê *"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            android:paddingBottom="4dp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/add_edt_tenant_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập số điện thoại"
+            android:inputType="phone"
+            android:background="@android:drawable/edit_text"
+            android:padding="10dp"
+            android:layout_marginBottom="24dp"
+            android:visibility="gone" />
+
+        <!-- Nút Lưu -->
+        <Button
+            android:id="@+id/add_btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LƯU PHÒNG"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:backgroundTint="#1565C0"
+            android:textColor="#FFFFFF"
+            android:padding="14dp"
+            android:layout_marginTop="8dp" />
+
+    </LinearLayout>
+</ScrollView>
