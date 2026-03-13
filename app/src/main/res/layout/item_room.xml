@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <!-- Tên phòng -->
+        <TextView
+            android:id="@+id/item_tv_room_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phòng 101"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#333333" />
+
+        <!-- Giá phòng -->
+        <TextView
+            android:id="@+id/item_tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_tv_room_name"
+            android:layout_marginTop="4dp"
+            android:text="Giá: 2,500,000 VND"
+            android:textSize="14sp"
+            android:textColor="#666666" />
+
+        <!-- Trạng thái phòng -->
+        <TextView
+            android:id="@+id/item_tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_tv_price"
+            android:layout_marginTop="4dp"
+            android:text="Còn trống"
+            android:textSize="14sp"
+            android:textColor="#4CAF50" />
+
+        <!-- Tên người thuê -->
+        <TextView
+            android:id="@+id/item_tv_tenant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_tv_status"
+            android:layout_marginTop="4dp"
+            android:text=""
+            android:textSize="13sp"
+            android:textColor="#888888"
+            android:visibility="gone" />
+
+        <!-- Nút Xóa – mặc định ẩn, TV4 sẽ bật bằng code -->
+        <Button
+            android:id="@+id/item_btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="Xóa"
+            android:backgroundTint="#F44336"
+            android:textColor="#FFFFFF"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
